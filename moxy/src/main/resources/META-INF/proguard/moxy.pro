@@ -17,7 +17,8 @@
 
 # R8 with full mode can remove *Command classes with same signature which breaks command queue
 # More info: https://github.com/moxy-community/Moxy/issues/141
--keep,allowobfuscation class * extends moxy.viewstate.MvpViewState { *; }
--keep,allowobfuscation class * extends moxy.viewstate.ViewCommand { *; }
-# R8 with full mode removes custom strategies
--keep,allowobfuscation class * implements moxy.viewstate.strategy.StateStrategy { *; }
+-keep,allowobfuscation,allowshrinking class * extends moxy.viewstate.ViewCommand { *; }
+# R8 with full mode removes custom strategy default constructor
+-keepclassmembers class * extends moxy.viewstate.strategy.StateStrategy {
+    <init>();
+}
